@@ -10,5 +10,8 @@
   "license": "ISC",
   "bin": {
     "hello": "./bin/index.js"
+  },
+  "dependencies": {
+    "yargs": "^13.2.4"
   }
 }
