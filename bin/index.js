@@ -2,11 +2,24 @@
 
 const yargs = require("yargs");
 
-const options = yargs
- .usage("Usage: -n <name>")
- .option("n", { alias: "name", describe: "Your name", type: "string", demandOption: true })
- .argv;
+const bookmarks = require("./readBookmarks");
 
-const greeting = `Hello, ${options.name}!`;
+// const options = yargs
+//  .usage("Usage: -r")
+//  .option("r", { alias: "run", describe: "read you bookmarks", type: "string", demandOption: false })
+//  .argv;
 
-console.log(greeting);
+
+const cmd = yargs.argv._;
+
+if(cmd.length != 1) {
+  console.log("Wrong number of commands");
+  return;
+}
+
+if (cmd[0] == 'run-bml') {
+  bookmarks.readBookmarks();
+  return;
+}
+
+console.log("Launching url...");
