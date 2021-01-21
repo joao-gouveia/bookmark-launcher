@@ -3,10 +3,9 @@
 const fs = require('fs');
 
 function readBookmarks(){
-  let rawdata = fs.readFileSync("C:/Users/joao.gouveia/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
-  let bookmarksData = JSON.parse(rawdata);
-  
-  readBookmarksRecursively(bookmarksData.roots.bookmark_bar.children, []);
+  let bookmarksData = readBookmarksFromFile();
+  let bookmarks = readBookmarksRecursively(bookmarksData.roots.bookmark_bar.children, []);
+  saveBookmarksToFile(bookmarks);
 }
 
 function readBookmarksRecursively(bookmarks, finalBookmarks){
@@ -17,10 +16,20 @@ function readBookmarksRecursively(bookmarks, finalBookmarks){
       return;
     }
 
-    readBookmarksRecursively(elem.children, finalBookmarks)
+    readBookmarksRecursively(elem.children, finalBookmarks);
   });
 
   return finalBookmarks;
+}
+
+
+function readBookmarksFromFile(){
+  let rawdata = fs.readFileSync("C:/Users/joao.gouveia/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
+  return JSON.parse(rawdata);
+}
+
+function saveBookmarksToFile(bookmarks){
+  fs.writeFileSync('out/bookmarks.json', JSON.stringify(bookmarks));
 }
 
 exports.readBookmarks = readBookmarks;
