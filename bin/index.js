@@ -10,7 +10,7 @@ const bookmarks = require("./readBookmarks");
 //  .argv;
 
 
-const cmd = yargs.argv._
+const cmd = yargs.argv._;
 
 if(cmd.length != 1) {
   console.log("Wrong number of commands");
@@ -19,5 +19,7 @@ if(cmd.length != 1) {
 
 if (cmd[0] == 'run-bml') {
   bookmarks.readBookmarks();
-  return
+  return;
 }
+
+console.log("Launching url...");

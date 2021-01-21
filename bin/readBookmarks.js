@@ -12,7 +12,7 @@ function readBookmarksRecursively(bookmarks, finalBookmarks){
   
   bookmarks.forEach(elem => {
     if(elem.children == null) {
-      finalBookmarks.push({"name": elem.name, "url": elem.url})
+      finalBookmarks.push({"name": elem.name, "url": elem.url});
       return;
     }
 
