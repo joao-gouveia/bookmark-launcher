@@ -8,10 +8,10 @@ function readBookmarks(){
   saveBookmarksToFile(bookmarks);
 }
 
-function readBookmarksRecursively(bookmarks, finalBookmarks){
+function readBookmarksRecursively(bookmarks, finalBookmarks) {
   
   bookmarks.forEach(elem => {
-    if(elem.children == null) {
+    if(!elem.children) {
       finalBookmarks.push({"name": elem.name, "url": elem.url});
       return;
     }
@@ -23,12 +23,12 @@ function readBookmarksRecursively(bookmarks, finalBookmarks){
 }
 
 
-function readBookmarksFromFile(){
+function readBookmarksFromFile() {
   let rawdata = fs.readFileSync("C:/Users/joao.gouveia/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
   return JSON.parse(rawdata);
 }
 
-function saveBookmarksToFile(bookmarks){
+function saveBookmarksToFile(bookmarks) {
   fs.writeFileSync('out/bookmarks.json', JSON.stringify(bookmarks));
 }
 

@@ -2,7 +2,8 @@
 
 const yargs = require("yargs");
 
-const bookmarks = require("./readBookmarks");
+const bookmarksReader = require("./readBookmarks");
+const bookmarksLauncher = require("./launchBookmarks.js")
 
 // const options = yargs
 //  .usage("Usage: -r")
@@ -10,16 +11,23 @@ const bookmarks = require("./readBookmarks");
 //  .argv;
 
 
-const cmd = yargs.argv._;
+const args = yargs.argv._;
 
-if(cmd.length != 1) {
+if(args.length != 1) {
   console.log("Wrong number of commands");
   return;
 }
 
-if (cmd[0] == 'run-bml') {
-  bookmarks.readBookmarks();
+let cmd = args[0];
+
+if (cmd == 'run-bml') {
+  bookmarksReader.readBookmarks();
   return;
 }
 
-console.log("Launching url...");
+if(!bookmarksLauncher.launchBookmark(cmd)) {
+  console.log("Invalid bookmark <" + cmd + ">");
+}
+else {
+  console.log("Launching bookmark <" + cmd + "> ...");
+}
