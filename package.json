@@ -12,6 +12,7 @@
     "bml": "./bin/index.js"
   },
   "dependencies": {
-    "yargs": "^13.2.4"
+    "open": "^7.3.1",
+    "yargs": "^13.3.2"
   }
 }
