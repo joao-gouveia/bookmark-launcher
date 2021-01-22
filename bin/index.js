@@ -30,6 +30,11 @@ let bookmarkName = bookmarksLauncher.launchBookmark(cmd);
 if(!bookmarkName) {
   console.log("Invalid bookmark <" + cmd + ">");
 }
+
+if(bookmarkName.length == 1) {
+  console.log("Launching bookmark <" + bookmarkName[0] + "> ...");
+}
+
 else {
-  console.log("Launching bookmark <" + bookmarkName + "> ...");
+  console.log("Did you mean any of these <" + bookmarkName + "> ?");
 }
