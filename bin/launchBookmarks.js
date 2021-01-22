@@ -24,10 +24,14 @@ function loadBookmarkFile() {
 
 function findBookmarkUrl(cmd, bookmarks) {
   for (let i = 0; i < bookmarks.length; i++) {
-    if (bookmarks[i].name == cmd){
+    if (compareCmdWithBookmark(cmd, bookmarks[i].name)) {
       return bookmarks[i].url;
     }
   }
+}
+
+function compareCmdWithBookmark(cmd, bookmark) {
+  return cmd.split(" ").join("").toLowerCase() == bookmark.split(" ").join("").toLowerCase();
 }
 
 function openBookmarkUrlOnBrowser(bookmarkUrl) {
