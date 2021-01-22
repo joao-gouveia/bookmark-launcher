@@ -12,7 +12,7 @@ function launchBookmark(cmd) {
     return;
   }
 
-  openBookmarkUrlOnBrowser (bookmarkUrl);
+  openBookmarkUrlOnBrowser(bookmarkUrl);
 
   return true;
 }
