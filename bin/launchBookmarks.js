@@ -6,15 +6,15 @@ const open = require('open');
 function launchBookmark(cmd) {
   let bookmarks = loadBookmarkFile();
 
-  let bookmarkUrl = findBookmarkUrl(cmd, bookmarks);
+  let foundBookmark = findBookmark(cmd, bookmarks);
 
-  if(!bookmarkUrl) {
+  if(!foundBookmark) {
     return;
   }
 
-  openBookmarkUrlOnBrowser(bookmarkUrl);
+  openBookmarkUrlOnBrowser(foundBookmark.url);
 
-  return true;
+  return foundBookmark.name;
 }
 
 function loadBookmarkFile() {
@@ -22,10 +22,10 @@ function loadBookmarkFile() {
   return JSON.parse(rawdata);
 }
 
-function findBookmarkUrl(cmd, bookmarks) {
+function findBookmark(cmd, bookmarks) {
   for (let i = 0; i < bookmarks.length; i++) {
     if (compareCmdWithBookmark(cmd, bookmarks[i].name)) {
-      return bookmarks[i].url;
+      return bookmarks[i];
     }
   }
 }
