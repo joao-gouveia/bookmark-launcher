@@ -2,19 +2,26 @@
 
 const fs = require('fs');
 const open = require('open');
+const fuzzySet = require('fuzzyset')
 
 function launchBookmark(cmd) {
   let bookmarks = loadBookmarkFile();
 
-  let foundBookmark = findBookmark(cmd, bookmarks);
+  let foundBookmarks = findPossibleBookmarks(cmd, bookmarks);
 
-  if(!foundBookmark) {
+  if(!foundBookmarks) {
     return;
   }
 
-  openBookmarkUrlOnBrowser(foundBookmark.url);
+  if(foundBookmarks.length > 1) {
+    return foundBookmarks;
+  }
+  
+  let correctBookmark = getBookmarkUrlFromName(bookmarks, foundBookmarks[0]);
 
-  return foundBookmark.name;
+  openBookmarkUrlOnBrowser(correctBookmark.url);
+
+  return foundBookmarks;
 }
 
 function loadBookmarkFile() {
@@ -22,12 +29,54 @@ function loadBookmarkFile() {
   return JSON.parse(rawdata);
 }
 
-function findBookmark(cmd, bookmarks) {
+function findPossibleBookmarks(cmd, bookmarks) {
+  let bookmarksNames = collectBookmarksNames(bookmarks);
+
+  let fSet = fuzzySet(bookmarksNames);
+  let bookmarksScore = fSet.get(cmd);
+
+  return processSearchResults(bookmarksScore);
+}
+
+function getBookmarkUrlFromName(bookmarks, bookmarkName) {
   for (let i = 0; i < bookmarks.length; i++) {
-    if (compareCmdWithBookmark(cmd, bookmarks[i].name)) {
+    if (compareCmdWithBookmark(bookmarkName, bookmarks[i].name)) {
       return bookmarks[i];
     }
   }
+
+  return;
+}
+
+function processSearchResults(bookmarksScore) {
+  if(!bookmarksScore) {
+    return;
+  }
+  
+  if(bookmarksScore.length == 1) {
+    return [bookmarksScore[0][1]];
+  }
+
+  let correctBookmarks = [bookmarksScore[0][1]];
+
+  for (let i = 0; i < bookmarksScore.length-1; i++) {
+    if(bookmarksScore[i][0] != bookmarksScore[i+1][0]) {
+      break;
+    }
+    correctBookmarks.push(bookmarksScore[i+1][1]);
+  }
+
+  return correctBookmarks;
+}
+
+function collectBookmarksNames(bookmarks) {
+  let bookmarksNames = [];
+  
+  bookmarks.forEach(elem => {
+    bookmarksNames.push(elem.name);
+  });
+
+  return bookmarksNames;
 }
 
 function compareCmdWithBookmark(cmd, bookmark) {
