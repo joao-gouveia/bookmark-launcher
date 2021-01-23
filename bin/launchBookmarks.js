@@ -33,9 +33,9 @@ function findPossibleBookmarks(cmd, bookmarks) {
   let bookmarksNames = collectBookmarksNames(bookmarks);
 
   let fSet = fuzzySet(bookmarksNames);
-  let results = fSet.get(cmd);
+  let bookmarksScore = fSet.get(cmd);
 
-  return processSearchResults(results);
+  return processSearchResults(bookmarksScore);
 }
 
 function getBookmarkUrlFromName(bookmarks, bookmarkName) {
@@ -48,25 +48,25 @@ function getBookmarkUrlFromName(bookmarks, bookmarkName) {
   return;
 }
 
-function processSearchResults(results) {
-  if(!results) {
+function processSearchResults(bookmarksScore) {
+  if(!bookmarksScore) {
     return;
   }
   
-  if(results.length == 1) {
-    return [results[0][1]];
+  if(bookmarksScore.length == 1) {
+    return [bookmarksScore[0][1]];
   }
 
-  let newResults = [results[0][1]];
+  let correctBookmarks = [bookmarksScore[0][1]];
 
-  for (let i = 0; i < results.length-1; i++) {
-    if(results[i][0] != results[i+1][0]) {
+  for (let i = 0; i < bookmarksScore.length-1; i++) {
+    if(bookmarksScore[i][0] != bookmarksScore[i+1][0]) {
       break;
     }
-    newResults.push(results[i+1][1]);
+    correctBookmarks.push(bookmarksScore[i+1][1]);
   }
 
-  return newResults;
+  return correctBookmarks;
 }
 
 function collectBookmarksNames(bookmarks) {
