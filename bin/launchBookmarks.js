@@ -9,7 +9,6 @@ function launchBookmark(cmd) {
 
   let foundBookmarks = findPossibleBookmarks(cmd, bookmarks);
 
-
   if(!foundBookmarks) {
     return;
   }
