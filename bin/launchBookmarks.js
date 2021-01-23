@@ -14,8 +14,6 @@ function launchBookmark(cmd) {
   }
 
   if(foundBookmarks.length > 1) {
-    console.log(foundBookmarks.length)
-
     return foundBookmarks;
   }
   
