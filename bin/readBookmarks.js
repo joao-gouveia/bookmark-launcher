@@ -1,11 +1,17 @@
-'use strict';
+const oSystem = require('os');
 
-const fs = require('fs');
+const utils = require('./utils');
 
 function readBookmarks(){
-  let bookmarksData = readBookmarksFromFile();
+  let bookmarksFilePath = global.configs.chromeBookmarkFilePath;
+
+  if(!bookmarksFilePath) {
+    bookmarksFilePath = defaultChromeBookmarksFilePath();
+  }
+ 
+  let bookmarksData = utils.readFileToJson(bookmarksFilePath);
   let bookmarks = readBookmarksRecursively(bookmarksData.roots.bookmark_bar.children, []);
-  saveBookmarksToFile(bookmarks);
+  utils.writeFileToPath(global.configs.processedBookmarksFilePath, bookmarks);
 }
 
 function readBookmarksRecursively(bookmarks, finalBookmarks) {
@@ -22,14 +28,8 @@ function readBookmarksRecursively(bookmarks, finalBookmarks) {
   return finalBookmarks;
 }
 
-
-function readBookmarksFromFile() {
-  let rawdata = fs.readFileSync("C:/Users/jestr/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
-  return JSON.parse(rawdata);
-}
-
-function saveBookmarksToFile(bookmarks) {
-  fs.writeFileSync('out/bookmarks.json', JSON.stringify(bookmarks));
+function defaultChromeBookmarksFilePath() {
+  return "C:/Users/" + oSystem.userInfo().username + "/AppData/Local/Google/Chrome/User Data/Default/Bookmarks";
 }
 
 exports.readBookmarks = readBookmarks;
