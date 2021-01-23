@@ -24,7 +24,7 @@ function readBookmarksRecursively(bookmarks, finalBookmarks) {
 
 
 function readBookmarksFromFile() {
-  let rawdata = fs.readFileSync("C:/Users/joao.gouveia/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
+  let rawdata = fs.readFileSync("C:/Users/jestr/AppData/Local/Google/Chrome/User Data/Default/Bookmarks");
   return JSON.parse(rawdata);
 }
 

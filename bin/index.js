@@ -25,15 +25,14 @@ if (cmd == 'run-bml') {
   return;
 }
 
-let bookmarkNames = bookmarksLauncher.launchBookmark(cmd);
+console.log(require("os").userInfo().username)
+
+return;
+let bookmarkName = bookmarksLauncher.launchBookmark(cmd);
 
 if(!bookmarkNames) {
   console.log("Invalid bookmark <" + cmd + ">");
-  return; 
-}
-
-if(bookmarkNames.length > 1) {
-  console.log("Did you mean any of these <" + bookmarkNames + "> ?");
+  return;
 }
 else {
   console.log("Launching bookmark <" + bookmarkNames[0] + "> ...");
