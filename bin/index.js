@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-const yargs = require("yargs");
+const yargs = require('yargs');
 
-const bookmarksReader = require("./readBookmarks");
-const bookmarksLauncher = require("./launchBookmarks.js")
+const bookmarksReader = require('./readBookmarks');
+const bookmarksLauncher = require('./launchBookmarks')
+const utils = require('./utils')
+
+global.configs = utils.readFileToJson("bin/configuration.json")
 
 // const options = yargs
 //  .usage("Usage: -r")
@@ -25,11 +28,14 @@ if (cmd == 'run-bml') {
   return;
 }
 
+// console.log(require("os").userInfo().username)
+
+// return;
 let bookmarkNames = bookmarksLauncher.launchBookmark(cmd);
 
 if(!bookmarkNames) {
   console.log("Invalid bookmark <" + cmd + ">");
-  return; 
+  return;
 }
 
 if(bookmarkNames.length > 1) {

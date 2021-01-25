@@ -1,11 +1,11 @@
-'use strict';
-
-const fs = require('fs');
 const open = require('open');
 const fuzzySet = require('fuzzyset')
 
+const utils = require('./utils')
+
 function launchBookmark(cmd) {
-  let bookmarks = loadBookmarkFile();
+
+  let bookmarks = utils.readFileToJson(global.configs.processedBookmarksFilePath);
 
   let foundBookmarks = findPossibleBookmarks(cmd, bookmarks);
 
@@ -22,11 +22,6 @@ function launchBookmark(cmd) {
   openBookmarkUrlOnBrowser(correctBookmark.url);
 
   return foundBookmarks;
-}
-
-function loadBookmarkFile() {
-  let rawdata = fs.readFileSync("./out/bookmarks.json");
-  return JSON.parse(rawdata);
 }
 
 function findPossibleBookmarks(cmd, bookmarks) {
