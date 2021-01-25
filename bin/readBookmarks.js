@@ -1,9 +1,11 @@
 const oSystem = require('os');
+const path = require('path');
 
 const utils = require('./utils');
 
 function readBookmarks(){
   let bookmarksFilePath = global.configs.chromeBookmarkFilePath;
+  let processedBookmarksFilePath = path.join(__dirname, '..', global.configs.processedBookmarksFilePath);
 
   if(!bookmarksFilePath) {
     bookmarksFilePath = defaultChromeBookmarksFilePath();
@@ -11,7 +13,8 @@ function readBookmarks(){
  
   let bookmarksData = utils.readFileToJson(bookmarksFilePath);
   let bookmarks = readBookmarksRecursively(bookmarksData.roots.bookmark_bar.children, []);
-  utils.writeFileToPath(global.configs.processedBookmarksFilePath, bookmarks);
+  
+  utils.writeFileToPath(processedBookmarksFilePath, bookmarks);
 }
 
 function readBookmarksRecursively(bookmarks, finalBookmarks) {

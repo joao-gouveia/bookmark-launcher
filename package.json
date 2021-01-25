@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "bml": "./bin/index.js"
+    "bml": "./index.js"
   },
   "dependencies": {
     "fuzzyset": "^1.0.6",

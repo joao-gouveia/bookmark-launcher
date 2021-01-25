@@ -1,11 +1,13 @@
+const fuzzySet = require('fuzzyset');
 const open = require('open');
-const fuzzySet = require('fuzzyset')
+const path = require('path');
 
 const utils = require('./utils')
 
 function launchBookmark(cmd) {
+  let processedBookmarksFilePath = path.join(__dirname, '..', global.configs.processedBookmarksFilePath);
 
-  let bookmarks = utils.readFileToJson(global.configs.processedBookmarksFilePath);
+  let bookmarks = utils.readFileToJson(processedBookmarksFilePath);
 
   let foundBookmarks = findPossibleBookmarks(cmd, bookmarks);
 
