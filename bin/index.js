@@ -37,6 +37,10 @@ if(!bookmarkNames) {
   console.log("Invalid bookmark <" + cmd + ">");
   return;
 }
+
+if(bookmarkNames.length > 1) {
+  console.log("Did you mean any of these <" + bookmarkNames + "> ?");
+}
 else {
   console.log("Launching bookmark <" + bookmarkNames[0] + "> ...");
 }
