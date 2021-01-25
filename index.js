@@ -2,10 +2,10 @@
 
 const yargs = require('yargs');
 
+const bookmarksLauncher = require('./bin/launchBookmarks');
 const bookmarksReader = require('./bin/readBookmarks');
-const bookmarksLauncher = require('./bin/launchBookmarks')
 
-global.configs = require('./bin/configuration.json')
+global.configs = require('./bin/configuration.json');
 
 // const options = yargs
 //  .usage("Usage: -r")

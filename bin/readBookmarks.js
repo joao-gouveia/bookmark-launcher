@@ -5,7 +5,7 @@ const utils = require('./utils');
 
 function readBookmarks(){
   let bookmarksFilePath = global.configs.chromeBookmarkFilePath;
-  let processedBookmarksFilePath = path.join(__dirname, '..', global.configs.processedBookmarksFilePath)
+  let processedBookmarksFilePath = path.join(__dirname, '..', global.configs.processedBookmarksFilePath);
 
   if(!bookmarksFilePath) {
     bookmarksFilePath = defaultChromeBookmarksFilePath();
