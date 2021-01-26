@@ -5,7 +5,7 @@
  If you use your terminal a lot (and your prefered Browser is Google Chrome), you can quickly run a command `bml <bookmark name>` to open that bookmark in Chrome.
 
 ## Installation
-Please take a look at INSTALL.md
+Please take a look at the [installation guide](INSTALL.md).
 
 ## Commands
 
