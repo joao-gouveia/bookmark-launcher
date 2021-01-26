@@ -7,12 +7,6 @@ const bookmarksReader = require('./bin/readBookmarks');
 
 global.configs = require('./bin/configuration.json');
 
-// const options = yargs
-//  .usage("Usage: -r")
-//  .option("r", { alias: "run", describe: "read you bookmarks", type: "string", demandOption: false })
-//  .argv;
-
-
 const args = yargs.argv._;
 
 if(args.length != 1) {
@@ -22,7 +16,7 @@ if(args.length != 1) {
 
 let cmd = args[0];
 
-if (cmd == 'run-bml') {
+if (cmd == 'run-save') {
   bookmarksReader.readBookmarks();
   return;
 }

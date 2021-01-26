@@ -10,7 +10,7 @@ It is pretty straight forward to install the `bml cli`.
 
 And you are ready to go!
 
-To start using the cli, run `bml run-bml` to save the `bookmarks.json`. Now it is ready to use.
+To start using the cli, run `bml run-save` to save the `bookmarks.json`. Now it is ready to use.
 
 Try using `bml <bookmark_name>`. It should be working!
 

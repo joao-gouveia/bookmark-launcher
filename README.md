@@ -10,14 +10,14 @@ Please take a look at the [installation guide](INSTALL.md).
 ## Commands
 
 #### Read all your bookmarks to the `bookmarks.json` file
-- `bml run-bml`
+- `bml run-save`
 
 #### Lauch bookmarks that exist in the `bookmarks.json` file
 - `bml <bookmark_name>`
 
 If the `<bookmark_name>` in the command is close to a saved bookmark, the bookmark will open. 
 
-If you add a new bookmark and you want to be able to launch it from the terminal, you should run `bml run-bml` again.
+If you add a new bookmark and you want to be able to launch it from the terminal, you should run `bml run-save` again.
 
 ## Story
 When I started using Windows instead of a MacOS to program at my job, I missed a lot of things. One of those was Alfred, which I used all the time, specially to quickly open urls, either saved separatly or from my Google Bookmarks.
