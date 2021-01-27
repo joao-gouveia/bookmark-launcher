@@ -4,26 +4,28 @@ const path = require('path');
 
 const utils = require('./utils')
 
+const minScore = 0.4;
+
 function launchBookmark(cmd) {
   let processedBookmarksFilePath = path.join(__dirname, '..', global.configs.processedBookmarksFilePath);
 
   let bookmarks = utils.readFileToJson(processedBookmarksFilePath);
 
-  let foundBookmarks = findPossibleBookmarks(cmd, bookmarks);
+  let foundBookmarksNames = findPossibleBookmarks(cmd, bookmarks);
 
-  if(!foundBookmarks) {
+  if(!foundBookmarksNames) {
     return;
   }
 
-  if(foundBookmarks.length > 1) {
-    return foundBookmarks;
+  if(foundBookmarksNames.length > 1) {
+    return foundBookmarksNames;
   }
   
-  let correctBookmark = getBookmarkUrlFromName(bookmarks, foundBookmarks[0]);
+  let correctBookmark = getBookmarkFromName(bookmarks, foundBookmarksNames[0]);
 
   openBookmarkUrlOnBrowser(correctBookmark.url);
 
-  return foundBookmarks;
+  return foundBookmarksNames;
 }
 
 function findPossibleBookmarks(cmd, bookmarks) {
@@ -35,9 +37,9 @@ function findPossibleBookmarks(cmd, bookmarks) {
   return processSearchResults(bookmarksScore);
 }
 
-function getBookmarkUrlFromName(bookmarks, bookmarkName) {
+function getBookmarkFromName(bookmarks, bookmarkName) {
   for (let i = 0; i < bookmarks.length; i++) {
-    if (compareCmdWithBookmark(bookmarkName, bookmarks[i].name)) {
+    if (bookmarks[i].name == bookmarkName) {
       return bookmarks[i];
     }
   }
@@ -46,12 +48,8 @@ function getBookmarkUrlFromName(bookmarks, bookmarkName) {
 }
 
 function processSearchResults(bookmarksScore) {
-  if(!bookmarksScore) {
+  if(!bookmarksScore || bookmarksScore[0][0] < minScore) {
     return;
-  }
-  
-  if(bookmarksScore.length == 1) {
-    return [bookmarksScore[0][1]];
   }
 
   let correctBookmarks = [bookmarksScore[0][1]];
@@ -74,10 +72,6 @@ function collectBookmarksNames(bookmarks) {
   });
 
   return bookmarksNames;
-}
-
-function compareCmdWithBookmark(cmd, bookmark) {
-  return cmd.split(" ").join("").toLowerCase() == bookmark.split(" ").join("").toLowerCase();
 }
 
 function openBookmarkUrlOnBrowser(bookmarkUrl) {

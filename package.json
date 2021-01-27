@@ -12,6 +12,7 @@
     "bml": "./index.js"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
     "fuzzyset": "^1.0.6",
     "open": "^7.3.1",
     "yargs": "^13.3.2"

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const chalk = require('chalk');
 const yargs = require('yargs');
 
 const bookmarksLauncher = require('./bin/launchBookmarks');
@@ -18,19 +19,20 @@ let cmd = args[0];
 
 if (cmd == 'run-save') {
   bookmarksReader.readBookmarks();
+  console.log(chalk.green("Successfully read bookmarks"));
   return;
 }
 
 let bookmarkNames = bookmarksLauncher.launchBookmark(cmd);
 
 if(!bookmarkNames) {
-  console.log("Invalid bookmark <" + cmd + ">");
+  console.log(chalk.red("Invalid bookmark <" + cmd + ">"));
   return;
 }
 
 if(bookmarkNames.length > 1) {
-  console.log("Did you mean any of these <" + bookmarkNames + "> ?");
+  console.log(chalk.yellow("Did you mean any of these <" + bookmarkNames + "> ?"));
 }
 else {
-  console.log("Launching bookmark <" + bookmarkNames[0] + "> ...");
+  console.log(chalk.green("Launching bookmark <" + bookmarkNames[0] + "> ..."));
 }
